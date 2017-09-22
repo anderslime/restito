@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static java.util.Collections.unmodifiableList;
 
@@ -101,6 +103,11 @@ public class StubServer {
     public StubServer clear() {
         this.clearStubs();
         this.clearCalls();
+        return this;
+    }
+
+    public StubServer configureHttpServer(Consumer<ServerConfiguration> configFun) {
+        configFun.accept(simpleServer.getServerConfiguration());
         return this;
     }
 
